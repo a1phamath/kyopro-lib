@@ -4,14 +4,19 @@ import math
 import bisect
 import itertools
 import sys
+
+sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 INF = float("inf")
 
 
-# 処理内容
+# input
+X, Y = map(int, input().split())
+S = input()[:-1]
+
+# functions
 def main():
-    A, B = map(int, input().split())
-    S = input()[:-1]
+    pass
 
 
 if __name__ == '__main__':
