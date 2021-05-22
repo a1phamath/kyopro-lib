@@ -13,45 +13,31 @@ INF = float("inf")
 
 
 # input
-N = int(input())
-P = list(map(int, input().split()))
-Q = int(input())
-U = [0] * Q
-D = [0] * Q
-for i in range(Q):
-    U[i], D[i] = map(int, input().split())
-
+A, B, K = map(int, input().split())
 
 # functions
+def solve(i, j, k, C):
+    if i == 0:
+        return 'b' * j
+    if j == 0:
+        return 'a' * i
+    if C[i-1][j] >= k:
+        return 'a' + solve(i-1, j, k, C)
+    else:
+        return 'b' + solve(i, j-1, k-C[i-1][j], C)
+
+
 def main():
-    N, M = map(int, input().split())
-
-    G = [[] for _ in range(N)]
-    for i in range(N):
-        a = P[i] - 1
-        b = i
-        G[a].append(b)
-        G[b].append(a)
-
-    visited = [False] * N
-    depth = [0] * N
-    E = []
-    dist = [-1] * (n+1)
-    dist[0] = 0
-    dist[1] = 0
-
-    d = deque()
-    d.append(1)
-
-    while d:
-        v = d.popleft()
-        for i in G[v]:
-            if dist[i] != -1:
-                continue
-            dist[i] = dist[v] + 1
-            d.append(i)
+    C = [[0] * (B+1) for _ in range(A+1)]
+    C[0][0] = 1
+    for i in range(A+1):
+        for j in range(B+1):
+            if i < A:
+                C[i+1][j] += C[i][j]
+            if j < B:
+                C[i][j+1] += C[i][j]
     
-    print(dist)
+    print(solve(A, B, K, C))
 
 
 if __name__ == '__main__':
